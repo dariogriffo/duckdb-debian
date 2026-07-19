@@ -1,0 +1,18 @@
+Source: duckdb
+Section: database
+Priority: optional
+Maintainer: Dario Griffo <dariogriffo@gmail.com>
+Build-Depends: debhelper-compat (= 13), wget, ca-certificates
+Standards-Version: 4.6.2
+Homepage: https://duckdb.org
+Rules-Requires-Root: no
+
+Package: duckdb
+Architecture: amd64 arm64
+Depends: ${misc:Depends}
+Description: fast in-process analytical SQL database (CLI)
+ DuckDB is a fast, in-process analytical SQL database — "SQLite for
+ analytics". It reads and writes CSV, Parquet and JSON directly, speaks
+ rich SQL with excellent performance on analytical workloads, and installs
+ extensions (httpfs, spatial, ...) at runtime from the official extension
+ repository. This package ships the official duckdb CLI.

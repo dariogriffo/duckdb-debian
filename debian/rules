@@ -1,0 +1,36 @@
+#!/usr/bin/make -f
+DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
+DUCKDB_VERSION := $(shell dpkg-parsechangelog -S Version | sed 's/[-~].*//')
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+
+override_dh_auto_build:
+	@arch="$(DEB_HOST_ARCH)"; \
+	case "$$arch" in \
+		amd64)  DUCKDB_RELEASE="duckdb_cli-linux-amd64" ;; \
+		arm64)  DUCKDB_RELEASE="duckdb_cli-linux-arm64" ;; \
+		*) echo "Unsupported architecture: $$arch"; exit 1 ;; \
+	esac; \
+	echo "Downloading $$DUCKDB_RELEASE for v$(DUCKDB_VERSION)..."; \
+	wget -q "https://github.com/duckdb/duckdb/releases/download/v$(DUCKDB_VERSION)/$$DUCKDB_RELEASE.gz"; \
+	gunzip "$$DUCKDB_RELEASE.gz"; \
+	echo "$$DUCKDB_RELEASE" > .duckdb_release_name
+
+override_dh_auto_install:
+	@DUCKDB_RELEASE=$$(cat .duckdb_release_name); \
+	install -D -m 755 "$$DUCKDB_RELEASE" debian/duckdb/usr/bin/duckdb
+
+override_dh_auto_test:
+
+override_dh_auto_clean:
+	@if [ -f .duckdb_release_name ]; then \
+		DUCKDB_RELEASE=$$(cat .duckdb_release_name); \
+		rm -f "$$DUCKDB_RELEASE" .duckdb_release_name || true; \
+	fi
+
+override_dh_strip:
+
+override_dh_shlibdeps:

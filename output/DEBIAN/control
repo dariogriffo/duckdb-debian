@@ -1,0 +1,8 @@
+Section: database
+Priority: optional
+Maintainer: Dario Griffo <dariogriffo@gmail.com>
+Homepage: https://duckdb.org
+Package: duckdb
+Version: duckdb_VERSION-BUILD_VERSION~DIST
+Architecture: SUPPORTED_ARCHITECTURES
+Description: DuckDB — fast in-process analytical SQL database (CLI).
