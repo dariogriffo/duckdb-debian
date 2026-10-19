@@ -5,4 +5,5 @@ Homepage: https://duckdb.org
 Package: duckdb
 Version: duckdb_VERSION-BUILD_VERSION~griffo
 Architecture: SUPPORTED_ARCHITECTURES
+Depends: libc6 (>= 2.25), libstdc++6 (>= 6), libgcc-s1
 Description: DuckDB — fast in-process analytical SQL database (CLI).

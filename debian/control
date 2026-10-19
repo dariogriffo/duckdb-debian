@@ -9,7 +9,7 @@ Rules-Requires-Root: no
 
 Package: duckdb
 Architecture: amd64 arm64
-Depends: ${misc:Depends}
+Depends: ${misc:Depends}, libc6 (>= 2.25), libstdc++6 (>= 6), libgcc-s1
 Description: fast in-process analytical SQL database (CLI)
  DuckDB is a fast, in-process analytical SQL database — "SQLite for
  analytics". It reads and writes CSV, Parquet and JSON directly, speaks
